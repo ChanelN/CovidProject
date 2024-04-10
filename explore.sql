@@ -114,6 +114,32 @@ SELECT *, (CountVaccinations/population)*100
 FROM #PercentPopulationVaccinated
 
 /*
+All the SQL from video
+*/
+
+--2
+SELECT location, SUM(CAST(new_deaths AS FLOAT)) AS totalDeathCount
+FROM dbo.CovidDeaths
+WHERE continent IS NULL
+AND location NOT IN ('World', 'European Union', 'International')
+GROUP BY location
+ORDER BY totalDeathCount desc
+
+--3
+Select Location, Population, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
+From dbo.CovidDeaths
+--Where location like '%states%'
+Group by Location, Population
+order by PercentPopulationInfected desc
+
+--4
+Select Location, Population,date, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
+From dbo.CovidDeaths
+--Where location like '%states%'
+Group by Location, Population, date
+order by PercentPopulationInfected desc
+
+/*
 MY OWN EXPLORATION
 */
 
